@@ -5,9 +5,20 @@ from tensorflow.keras.preprocessing import image
 import os
 
 app = Flask(__name__)
-model_mobilenet = load_model('MobileNetv2_leaf.h5')
-model_resnet = load_model('Resnet_leaf.h5')
-model_inceptionv3 = load_model('Inceptionv3_leaf.h5')
+
+script_dir = os.path.dirname(__file__)
+model_mobilenet_path = os.path.join(script_dir, 'MobileNetv2_leaf.h5')
+model_resnet_path = os.path.join(script_dir, 'Resnet_leaf.h5')
+model_inceptionv3_path = os.path.join(script_dir, 'Inceptionv3_leaf.h5')
+
+model_mobilenet = load_model(model_mobilenet_path)
+model_resnet = load_model(model_resnet_path)
+model_inceptionv3 = load_model(model_inceptionv3_path)
+
+if not os.path.exists(model_mobilenet_path):
+    raise FileNotFoundError(f"Model file not found: {model_mobilenet_path}")
+# Repeat for other models
+
 
 def predict_image(image_path, model):
     img = image.load_img(image_path, target_size=(64, 64))
