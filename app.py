@@ -3,6 +3,11 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import os
+import tensorflow as tf
+
+# Force TensorFlow to use the CPU
+tf.config.set_visible_devices([], 'GPU')
+
 
 app = Flask(__name__)
 model_mobilenet = load_model('MobileNetv2_leaf.h5')
